@@ -38,4 +38,16 @@ public class GlobalExceptionHandler {
         problem.setProperty("invalidFields", errores);
         return problem;
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ProblemDetail entradaIlegalProblem(
+            IllegalArgumentException ex) {
+        ProblemDetail problem = ProblemDetail
+                .forStatusAndDetail(
+                        HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Entrada Ilegal");
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
+
 }
